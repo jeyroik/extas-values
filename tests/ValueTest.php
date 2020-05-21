@@ -8,6 +8,7 @@ use extas\components\THasComplexValue;
 use extas\components\THasValue;
 use extas\components\values\Value;
 use extas\components\values\ValueRepository;
+use extas\interfaces\IHasValue;
 use extas\interfaces\repositories\IRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -33,6 +34,7 @@ class ValueTest extends TestCase
             'valueRepository' => ValueRepository::class
         ]);
         $this->createRepoExt(['valueRepository']);
+
     }
 
     protected function tearDown(): void
@@ -58,5 +60,29 @@ class ValueTest extends TestCase
         ]));
 
         $this->assertEquals('test', $item->buildValue());
+    }
+
+    public function testValueAsSettings()
+    {
+        $item = new class ([
+            IHasValue::FIELD__VALUE => [
+                'format' => 'Y-m-d',
+                'timestamp' => time()
+            ]
+        ]) extends Item {
+            use THasValue;
+            use THasComplexValue;
+            protected function getSubjectForExtension(): string
+            {
+                return 'test';
+            }
+        };
+
+        $this->valueRepo->create(new Value([
+            Value::FIELD__NAME => 'test',
+            Value::FIELD__CLASS => DateValueDispatcher::class
+        ]));
+
+        $this->assertEquals(date('Y-m-d'), $item->buildValue());
     }
 }

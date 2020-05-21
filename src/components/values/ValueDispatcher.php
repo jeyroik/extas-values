@@ -29,7 +29,7 @@ abstract class ValueDispatcher extends Item implements IValueDispatcher
         if (is_array($currentValue)) {
             $this->config = $currentValue;
         }
-        
+
         if ($this->isValid()) {
             $item->setValue($this->buildValue());
         }
