@@ -18,4 +18,12 @@ class TestValueDispatcher extends ValueDispatcher
     {
         return 'test';
     }
+
+    /**
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        return true;
+    }
 }

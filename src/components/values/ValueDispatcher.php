@@ -25,9 +25,20 @@ abstract class ValueDispatcher extends Item implements IValueDispatcher
     public function __invoke(IItem &$item): void
     {
         $this->item = $item;
-        $this->config = $item->getValue();
-        $item->setValue($this->buildValue());
+        $currentValue = $item->getValue();
+        if (is_array($currentValue)) {
+            $this->config = $currentValue;
+        }
+        
+        if ($this->isValid()) {
+            $item->setValue($this->buildValue());
+        }
     }
+
+    /**
+     * @return bool
+     */
+    abstract public function isValid(): bool;
 
     /**
      * @return mixed
