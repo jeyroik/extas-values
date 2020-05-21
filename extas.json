@@ -1,0 +1,27 @@
+{
+  "name": "extas/values",
+  "package_classes": [
+    {
+      "interface": "extas\\interfaces\\values\\IValueRepository",
+      "class": "extas\\components\\values\\ValueRepository"
+    },
+    {
+      "interface": "valueRepository",
+      "class": "extas\\components\\values\\ValueRepository"
+    }
+  ],
+  "plugins": [
+    {
+      "class": "extas\\components\\plugins\\PluginInstallValues",
+      "stage": "extas.install"
+    }
+  ],
+  "extensions": [
+    {
+      "class": "extas\\components\\extensions\\ExtensionRepositoryGet",
+      "interface": "extas\\interfaces\\extensions\\IExtensionRepositoryGet",
+      "subject": "*",
+      "methods": ["valueRepository"]
+    }
+  ]
+}
