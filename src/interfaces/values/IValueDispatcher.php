@@ -10,13 +10,13 @@ use extas\interfaces\IItem;
  * @package extas\interfaces\values
  * @author jeyroik <jeyroik@gmail.com>
  */
-interface IValueDispatcher extends IItem
+interface IValueDispatcher extends IItem, IHasValue
 {
     public const SUBJECT = 'extas.value.dispatcher';
     public const FIELD__REPLACES = 'replaces';
 
     /**
-     * @param IItem|IHasValue $item
+     * @param mixed $value
      */
-    public function __invoke(IItem &$item): void;
+    public function __invoke(&$value): void;
 }
