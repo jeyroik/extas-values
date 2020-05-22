@@ -67,7 +67,7 @@ class ValueTest extends TestCase
     public function testValueAsSettings()
     {
         $item = new WithComplexValue([
-            IHasValue::FIELD__VALUE => [
+            WithComplexValue::FIELD__VALUE => [
                 'format' => 'Y-m-d',
                 'timestamp' => time(),
                 'say' => '@day is @time'
