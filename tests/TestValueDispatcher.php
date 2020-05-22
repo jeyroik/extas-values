@@ -12,17 +12,19 @@ use extas\components\values\ValueDispatcher;
 class TestValueDispatcher extends ValueDispatcher
 {
     /**
+     * @param mixed $value
      * @return mixed|string
      */
-    public function buildValue()
+    public function build($value)
     {
         return 'test';
     }
 
     /**
+     * @param mixed $value
      * @return bool
      */
-    public function isValid(): bool
+    public function isValid($value): bool
     {
         return true;
     }

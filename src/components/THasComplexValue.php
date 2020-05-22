@@ -28,14 +28,15 @@ trait THasComplexValue
          * @var IValue[] $values
          */
         $values = $this->valueRepository()->all([]);
+        $itemValue = $this->getValue();
         foreach ($values as $value) {
             /**
              * @var IValueDispatcher $dispatcher
              */
-            $dispatcher = $value->buildClassWithParameters();
-            $dispatcher($this);
+            $dispatcher = $value->buildClassWithParameters($this->__toArray());
+            $dispatcher($itemValue);
         }
 
-        return $this->getValue($default);
+        return $itemValue;
     }
 }

@@ -13,21 +13,23 @@ use extas\components\values\ValueDispatcher;
 class DateValueDispatcher extends ValueDispatcher
 {
     /**
-     * @return false|mixed|string
+     * @param mixed $value
+     * @return mixed|string|string[]
      */
-    public function buildValue()
+    public function build($value)
     {
         $replaces = $this->getReplaces();
-        $replaces['time'] = date($this->config['format'], $this->config['timestamp']);
+        $replaces['time'] = date($value['format'], $value['timestamp']);
 
-        return Replace::please()->apply($replaces)->to($this->config['say']);
+        return Replace::please()->apply($replaces)->to($value['say']);
     }
 
     /**
+     * @param mixed $value
      * @return bool
      */
-    public function isValid(): bool
+    public function isValid($value): bool
     {
-        return isset($this->config['format'], $this->config['timestamp'], $this->config['say']);
+        return is_array($value) && isset($value['format'], $value['timestamp'], $value['say']);
     }
 }

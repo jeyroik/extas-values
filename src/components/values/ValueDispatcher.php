@@ -2,7 +2,7 @@
 namespace extas\components\values;
 
 use extas\components\Item;
-use extas\interfaces\IHasValue;
+use extas\components\THasValue;
 use extas\interfaces\IItem;
 use extas\interfaces\values\IValueDispatcher;
 
@@ -14,24 +14,20 @@ use extas\interfaces\values\IValueDispatcher;
  */
 abstract class ValueDispatcher extends Item implements IValueDispatcher
 {
+    use THasValue;
+
     /**
      * @var IItem
      */
     protected IItem $item;
 
     /**
-     * @param IItem|IHasValue $item
+     * @param mixed $value
      */
-    public function __invoke(IItem &$item): void
+    public function __invoke(&$value): void
     {
-        $this->item = $item;
-        $currentValue = $item->getValue();
-        if (is_array($currentValue)) {
-            $this->config = $currentValue;
-        }
-
-        if ($this->isValid()) {
-            $item->setValue($this->buildValue());
+        if ($this->isValid($value)) {
+            $value = $this->build($value);
         }
     }
 
@@ -44,14 +40,16 @@ abstract class ValueDispatcher extends Item implements IValueDispatcher
     }
 
     /**
+     * @param mixed $value
      * @return bool
      */
-    abstract public function isValid(): bool;
+    abstract public function isValid($value): bool;
 
     /**
+     * @param mixed $value
      * @return mixed
      */
-    abstract public function buildValue();
+    abstract public function build($value);
 
     /**
      * @return string

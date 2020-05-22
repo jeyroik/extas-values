@@ -70,10 +70,10 @@ class ValueTest extends TestCase
             WithComplexValue::FIELD__VALUE => [
                 'format' => 'Y-m-d',
                 'timestamp' => time(),
-                'say' => '@day is @time',
-                IValueDispatcher::FIELD__REPLACES => [
-                    'day' => 'today'
-                ]
+                'say' => '@day is @time'
+            ],
+            IValueDispatcher::FIELD__REPLACES => [
+                'day' => 'today'
             ]
         ]);
 
