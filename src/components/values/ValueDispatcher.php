@@ -36,6 +36,14 @@ abstract class ValueDispatcher extends Item implements IValueDispatcher
     }
 
     /**
+     * @return array
+     */
+    public function getReplaces(): array
+    {
+        return $this->config[static::FIELD__REPLACES] ?? [];
+    }
+
+    /**
      * @return bool
      */
     abstract public function isValid(): bool;

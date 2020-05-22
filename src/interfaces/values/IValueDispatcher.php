@@ -13,6 +13,7 @@ use extas\interfaces\IItem;
 interface IValueDispatcher extends IItem
 {
     public const SUBJECT = 'extas.value.dispatcher';
+    public const FIELD__REPLACES = 'replaces';
 
     /**
      * @param IItem|IHasValue $item

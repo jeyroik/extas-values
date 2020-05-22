@@ -1,6 +1,7 @@
 <?php
 namespace tests;
 
+use extas\components\Replace;
 use extas\components\values\ValueDispatcher;
 
 /**
@@ -16,7 +17,10 @@ class DateValueDispatcher extends ValueDispatcher
      */
     public function buildValue()
     {
-        return date($this->config['format'], $this->config['timestamp']);
+        $replaces = $this->getReplaces();
+        $replaces['time'] = date($this->config['format'], $this->config['timestamp']);
+
+        return Replace::please()->apply($replaces)->to($this->config['say']);
     }
 
     /**
@@ -24,6 +28,6 @@ class DateValueDispatcher extends ValueDispatcher
      */
     public function isValid(): bool
     {
-        return isset($this->config['format'], $this->config['timestamp']);
+        return isset($this->config['format'], $this->config['timestamp'], $this->config['say']);
     }
 }

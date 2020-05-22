@@ -9,6 +9,8 @@ namespace extas\interfaces;
  */
 interface IHasComplexValue
 {
+    public const FIELD__PARENT = 'parent';
+
     /**
      * @param mixed $default
      * @return mixed
