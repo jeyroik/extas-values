@@ -2,6 +2,7 @@
   "name": "jeyroik/extas-values",
   "description": "Values for Extas",
   "require": {
+    "jeyroik/extas-foundation": "5.*",
     "jeyroik/extas-repositories-get": "0.*"
   },
   "require-dev": {
