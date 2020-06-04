@@ -2,8 +2,10 @@
 namespace tests;
 
 use Dotenv\Dotenv;
+use extas\components\extensions\ExtensionRepository;
 use extas\components\extensions\TSnuffExtensions;
 use extas\components\Item;
+use extas\components\repositories\TSnuffRepository;
 use extas\components\THasComplexValue;
 use extas\components\THasValue;
 use extas\components\values\Value;
@@ -22,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ValueTest extends TestCase
 {
-    use TSnuffExtensions;
+    use TSnuffRepository;
 
     protected IRepository $valueRepo;
 
@@ -32,17 +34,15 @@ class ValueTest extends TestCase
         $env = Dotenv::create(getcwd() . '/tests/');
         $env->load();
         $this->valueRepo = new ValueRepository();
-        $this->addReposForExt([
-            'valueRepository' => ValueRepository::class
+        $this->registerSnuffRepos([
+            'valueRepository' => ValueRepository::class,
+            'extensionRepository' => ExtensionRepository::class
         ]);
-        $this->createRepoExt(['valueRepository']);
-
     }
 
     protected function tearDown(): void
     {
-        $this->valueRepo->delete([Value::FIELD__NAME => 'test']);
-        $this->deleteSnuffExtensions();
+        $this->unregisterSnuffRepos();
     }
 
     public function testHasComplexValue()
@@ -56,7 +56,7 @@ class ValueTest extends TestCase
             }
         };
 
-        $this->valueRepo->create(new Value([
+        $this->createWithSnuffRepo('valueRepository', new Value([
             Value::FIELD__NAME => 'test',
             Value::FIELD__CLASS => TestValueDispatcher::class
         ]));
@@ -77,7 +77,7 @@ class ValueTest extends TestCase
             ]
         ]);
 
-        $this->valueRepo->create(new Value([
+        $this->createWithSnuffRepo('valueRepository', new Value([
             Value::FIELD__NAME => 'test',
             Value::FIELD__CLASS => DateValueDispatcher::class
         ]));

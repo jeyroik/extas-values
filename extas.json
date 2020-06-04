@@ -1,10 +1,7 @@
 {
   "name": "extas/values",
+  "installer_version": 3,
   "package_classes": [
-    {
-      "interface": "extas\\interfaces\\values\\IValueRepository",
-      "class": "extas\\components\\values\\ValueRepository"
-    },
     {
       "interface": "valueRepository",
       "class": "extas\\components\\values\\ValueRepository"
@@ -12,8 +9,12 @@
   ],
   "plugins": [
     {
-      "class": "extas\\components\\plugins\\PluginInstallValues",
-      "stage": "extas.install"
+      "class": "extas\\components\\plugins\\install\\InstallValues",
+      "stage": "extas.install.section.values"
+    },
+    {
+      "class": "extas\\components\\plugins\\install\\UninstallValues",
+      "stage": "extas.uninstall.section.values"
     }
   ],
   "extensions": [

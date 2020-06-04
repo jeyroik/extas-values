@@ -1,20 +1,19 @@
 <?php
-namespace extas\components\plugins;
+namespace extas\components\plugins\uninstall;
 
 use extas\components\values\Value;
-use extas\interfaces\values\IValueRepository;
 
 /**
- * Class PluginInstallValues
+ * Class UninstallValues
  *
- * @package extas\components\plugins
+ * @package extas\components\plugins\uninstall
  * @author jeyroik <jeyroik@gmail.com>
  */
-class PluginInstallValues extends PluginInstallDefault
+class UninstallValues extends UninstallSection
 {
     protected string $selfSection = 'values';
     protected string $selfName = 'value';
-    protected string $selfRepositoryClass = IValueRepository::class;
+    protected string $selfRepositoryClass = 'valueRepository';
     protected string $selfUID = Value::FIELD__NAME;
     protected string $selfItemClass = Value::class;
 }
